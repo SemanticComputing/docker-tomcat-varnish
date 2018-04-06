@@ -1,0 +1,22 @@
+#!/bin/sh
+
+cd $CATALINA_HOME
+
+/usr/bin/jsvc \
+    -pidfile $FILE_PID_TOMCAT \
+    -classpath $CATALINA_HOME/bin/bootstrap.jar:$CATALINA_HOME/bin/tomcat-juli.jar:/usr/share/java/commons-daemon.jar \
+    -outfile $FILE_LOG_TOMCAT_OUT \
+    -errfile $FILE_LOG_TOMCAT_ERROR \
+    -Dcatalina.home=$CATALINA_HOME \
+    -Dcatalina.base=$CATALINA_BASE \
+    -Djava.util.logging.manager=org.apache.juli.ClassLoaderLogManager \
+    -Djava.util.logging.config.file=$FILE_CONF_TOMCAT_LOGGING \
+    org.apache.catalina.startup.Bootstrap
+
+$EXEC_VARNISH >> "$FILE_LOG_VARNISH" 2>&1 &
+
+# Loggin may fail if tail immediately
+sleep 1
+
+# Tail logs to stdout
+exec tail -f "$FILE_LOG_VARNISH" "$FILE_LOG_TOMCAT_OUT" "$FILE_LOG_TOMCAT_ERROR"
