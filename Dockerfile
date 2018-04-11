@@ -30,7 +30,6 @@ ENV FILE_PID_TOMCAT "/run/tomcat.pid"
 ENV FILE_CONF_TOMCAT_LOGGING "$CATALINA_BASE/conf/logging.properties"
 ENV RUN_TOMCAT_VARNISH "/run-tomcat-varnish.sh"
 ENV EXEC_TOMCAT_VARNISH "exec $RUN_TOMCAT_VARNISH"
-ENV test "\test test"
 
 
 # PERMISSIONS
