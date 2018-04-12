@@ -23,6 +23,7 @@ RUN apt-get install -y vim
 # ENVIRONMENT VARIBLES
 ENV CATALINA_HOME "/usr/share/tomcat8"
 ENV CATALINA_BASE "/var/lib/tomcat8"
+ENV PATH_WEBAPPS "$CATALINA_BASE/webapps"
 ENV PATH_LOG_TOMCAT "/var/log/tomcat8"
 ENV FILE_LOG_TOMCAT_OUT "$PATH_LOG_TOMCAT/catalina.out"
 ENV FILE_LOG_TOMCAT_ERROR "$PATH_LOG_TOMCAT/catalina.err"
