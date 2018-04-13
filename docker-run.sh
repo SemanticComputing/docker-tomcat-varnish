@@ -3,7 +3,7 @@
 # Use this only for running individual containers locally
 # On cpouta use docker-compose
 
-IMAGE_NAME="tomcat-varnish"
+IMAGE_NAME="tomcat-7-varnish"
 CONTAINER_NAME="$IMAGE_NAME"
 IP="172.30.23.14"
 CONTAINER_PORT="80"

@@ -10,6 +10,7 @@ cd $CATALINA_HOME
     -Dcatalina.home=$CATALINA_HOME \
     -Dcatalina.base=$CATALINA_BASE \
     -Djava.util.logging.manager=org.apache.juli.ClassLoaderLogManager \
+    -Djavax.servlet.request.encoding=UTF-8 -Dfile.encoding=UTF-8 \
     -Djava.util.logging.config.file=$FILE_CONF_TOMCAT_LOGGING \
     org.apache.catalina.startup.Bootstrap
 

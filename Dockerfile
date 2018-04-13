@@ -8,23 +8,29 @@ RUN echo "deb-src  http://deb.debian.org/debian jessie main" >> /etc/apt/sources
 
 RUN apt-get update
 
-RUN apt-get install -y openjdk-8-jdk
-ENV JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64
 
-RUN apt-get install -y tomcat8
-RUN apt-get install -y maven
+COPY jdk-6u45-linux-x64.bin /usr/lib/jvm/
+WORKDIR /usr/lib/jvm
+RUN chmod +x /usr/lib/jvm/jdk-6u45-linux-x64.bin
+RUN /usr/lib/jvm/jdk-6u45-linux-x64.bin
+RUN rm /usr/lib/jvm/jdk-6u45-linux-x64.bin
+#RUN mv /jdk1.6.0_45 /usr/lib/jvm/
+
+ENV JAVA_HOME "/usr/lib/jvm/jdk1.6.0_45/"
+
+RUN apt-get install -y tomcat7
+#RUN apt-get install -y maven
 RUN apt-get install -y git
 RUN apt-get install -y jsvc
 
 # vim just for dev debugging, remove when more stable
 RUN apt-get install -y vim
 
-
 # ENVIRONMENT VARIBLES
-ENV CATALINA_HOME "/usr/share/tomcat8"
-ENV CATALINA_BASE "/var/lib/tomcat8"
+ENV CATALINA_HOME "/usr/share/tomcat7"
+ENV CATALINA_BASE "/var/lib/tomcat7"
 ENV PATH_WEBAPPS "$CATALINA_BASE/webapps"
-ENV PATH_LOG_TOMCAT "/var/log/tomcat8"
+ENV PATH_LOG_TOMCAT "/var/log/tomcat7"
 ENV FILE_LOG_TOMCAT_OUT "$PATH_LOG_TOMCAT/catalina.out"
 ENV FILE_LOG_TOMCAT_ERROR "$PATH_LOG_TOMCAT/catalina.err"
 ENV FILE_PID_TOMCAT "/run/tomcat.pid"

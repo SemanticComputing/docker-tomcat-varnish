@@ -10,4 +10,4 @@ while getopts ":c" opt; do
     esac
 done
 
-docker build $PARAMS -t tomcat-varnish .
+docker build $PARAMS -t tomcat-7-varnish .
