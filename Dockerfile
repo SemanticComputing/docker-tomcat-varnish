@@ -24,6 +24,7 @@ RUN apt-get install -y vim
 ENV CATALINA_HOME "/usr/share/tomcat8"
 ENV CATALINA_BASE "/var/lib/tomcat8"
 ENV PATH_WEBAPPS "$CATALINA_BASE/webapps"
+ENV PATH_TOMCAT_WORK "/var/lib/tomcat8/work"
 ENV PATH_LOG_TOMCAT "/var/log/tomcat8"
 ENV FILE_LOG_TOMCAT_OUT "$PATH_LOG_TOMCAT/catalina.out"
 ENV FILE_LOG_TOMCAT_ERROR "$PATH_LOG_TOMCAT/catalina.err"
@@ -39,8 +40,8 @@ ENV PATHS "'$CATALINA_HOME' '$CATALINA_BASE'"
 RUN eval "mkdir -p $PATHS; chgrp -L -R root $PATHS"
 
 # RW access directories
-ENV PATHS "'$PATH_LOG_TOMCAT'"
-RUN eval "mkdir -p $PATHS; chgrp root $PATHS; chmod -R g=u $PATHS"
+ENV PATHS "'$PATH_LOG_TOMCAT' '$PATH_TOMCAT_WORK'"
+RUN eval "mkdir -p $PATHS; chgrp root -R $PATHS; chmod -R g=u $PATHS"
 
 # RW access files
 ENV PATHS " \
