@@ -1,4 +1,4 @@
-FROM varnish:latest
+FROM secoresearch/varnish
 
 
 # INSTALL PROGRAMS
@@ -31,6 +31,7 @@ ENV CATALINA_HOME "/usr/share/tomcat7"
 ENV CATALINA_BASE "/var/lib/tomcat7"
 ENV PATH_WEBAPPS "$CATALINA_BASE/webapps"
 ENV PATH_LOG_TOMCAT "/var/log/tomcat7"
+ENV PATH_TOMCAT_WORK "/var/lib/tomcat7/work"
 ENV FILE_LOG_TOMCAT_OUT "$PATH_LOG_TOMCAT/catalina.out"
 ENV FILE_LOG_TOMCAT_ERROR "$PATH_LOG_TOMCAT/catalina.err"
 ENV FILE_PID_TOMCAT "/run/tomcat.pid"
@@ -45,8 +46,8 @@ ENV PATHS "'$CATALINA_HOME' '$CATALINA_BASE'"
 RUN eval "mkdir -p $PATHS; chgrp -L -R root $PATHS"
 
 # RW access directories
-ENV PATHS "'$PATH_LOG_TOMCAT'"
-RUN eval "mkdir -p $PATHS; chgrp root $PATHS; chmod -R g=u $PATHS"
+ENV PATHS "'$PATH_LOG_TOMCAT' '$PATH_TOMCAT_WORK'"
+RUN eval "mkdir -p $PATHS; chgrp root -R $PATHS; chmod -R g=u $PATHS"
 
 # RW access files
 ENV PATHS " \
