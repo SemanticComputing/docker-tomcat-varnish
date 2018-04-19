@@ -1,4 +1,4 @@
-FROM varnish:latest
+FROM secoresearch/varnish
 
 
 # INSTALL PROGRAMS
