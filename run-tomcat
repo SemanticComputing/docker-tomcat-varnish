@@ -1,0 +1,13 @@
+#!/bin/bash
+
+/usr/bin/jsvc \
+    -pidfile $FILE_PID_TOMCAT \
+    -outfile '&1' \
+    -errfile '&2' \
+    -classpath $CATALINA_HOME/bin/bootstrap.jar:$CATALINA_HOME/bin/tomcat-juli.jar:/usr/share/java/commons-daemon.jar \
+    -Dcatalina.home=$CATALINA_HOME \
+    -Dcatalina.base=$CATALINA_BASE \
+    -Djava.util.logging.manager=org.apache.juli.ClassLoaderLogManager \
+    -Djavax.servlet.request.encoding=UTF-8 -Dfile.encoding=UTF-8 \
+    -Djava.util.logging.config.file=$FILE_CONF_TOMCAT_LOGGING \
+    org.apache.catalina.startup.Bootstrap
