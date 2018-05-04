@@ -3,7 +3,7 @@
 /usr/bin/jsvc \
     -pidfile $FILE_PID_TOMCAT \
     -outfile '&1' \
-    -errfile '$2' \
+    -errfile '&2' \
     -classpath $CATALINA_HOME/bin/bootstrap.jar:$CATALINA_HOME/bin/tomcat-juli.jar:/usr/share/java/commons-daemon.jar \
     -Dcatalina.home=$CATALINA_HOME \
     -Dcatalina.base=$CATALINA_BASE \

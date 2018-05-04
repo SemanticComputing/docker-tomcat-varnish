@@ -49,8 +49,10 @@ RUN eval "mkdir -p $PATHS; chgrp root -R $PATHS; chmod -R g=u $PATHS"
 ENV PATHS " \
     '$FILE_PID_TOMCAT' "
 RUN eval "touch $PATHS; chgrp root $PATHS; chmod g=u $PATHS"
-
 ENV PATHS ""
+
+# Link tomcat log location to PATH_LOG
+RUN rm "$CATALINA_BASE/logs" && ln -s "$PATH_LOG" "$CATALINA_BASE/logs"
 
 # ENTRY
 COPY run-tomcat "$RUN_TOMCAT"
