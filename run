@@ -1,23 +1,12 @@
 #!/bin/sh
 
-cd $CATALINA_HOME
+touch "$FILE_LOG_TOMCAT"
+touch "$FILE_LOG_TOMCAT_ERR"
+touch "$FILE_LOG_VARNISH"
+touch "$FILE_LOG_VARNISH_ERR"
 
-/usr/bin/jsvc \
-    -pidfile $FILE_PID_TOMCAT \
-    -classpath $CATALINA_HOME/bin/bootstrap.jar:$CATALINA_HOME/bin/tomcat-juli.jar:/usr/share/java/commons-daemon.jar \
-    -outfile $FILE_LOG_TOMCAT_OUT \
-    -errfile $FILE_LOG_TOMCAT_ERROR \
-    -Dcatalina.home=$CATALINA_HOME \
-    -Dcatalina.base=$CATALINA_BASE \
-    -Djava.util.logging.manager=org.apache.juli.ClassLoaderLogManager \
-    -Djavax.servlet.request.encoding=UTF-8 -Dfile.encoding=UTF-8 \
-    -Djava.util.logging.config.file=$FILE_CONF_TOMCAT_LOGGING \
-    org.apache.catalina.startup.Bootstrap
-
-$EXEC_VARNISH >> "$FILE_LOG_VARNISH" 2>&1 &
-
-# Loggin may fail if tail immediately
-sleep 1
+eval "$EXEC_TOMCAT" >> "$FILE_LOG_TOMCAT" 2>> "$FILE_LOG_TOMCAT_ERR" &
+eval "$EXEC_VARNISH" >> "$FILE_LOG_VARNISH" 2>> "$FILE_LOG_VARNISH_ERR" &
 
 # Tail logs to stdout
-exec tail -f "$FILE_LOG_VARNISH" "$FILE_LOG_TOMCAT_OUT" "$FILE_LOG_TOMCAT_ERROR"
+exec tail -f "$FILE_LOG_VARNISH" "$FILE_LOG_TOMCAT" "$FILE_LOG_TOMCAT_ERR" "$FILE_LOG_VARNISH_ERR"
