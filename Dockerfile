@@ -24,6 +24,7 @@ RUN apt-get install -y vim
 ENV CATALINA_HOME "/usr/share/tomcat8"
 ENV CATALINA_BASE "/var/lib/tomcat8"
 ENV PATH_WEBAPPS "$CATALINA_BASE/webapps"
+ENV PATH_WEBAPP_ROOT "$PATH_WEBAPPS/ROOT"
 ENV PATH_TOMCAT_WORK "/var/lib/tomcat8/work"
 ENV FILE_PID_TOMCAT "/run/tomcat.pid"
 ENV PATH_LOG "/log"
