@@ -40,17 +40,15 @@ ENV EXEC_TOMCAT_VARNISH "exec $RUN_TOMCAT_VARNISH"
 
 
 # PERMISSIONS
-# R access directories
-ENV PATHS "'$CATALINA_HOME' '$CATALINA_BASE'"
-RUN eval "mkdir -p $PATHS; chgrp -L -R root $PATHS"
-# RW access directories
-ENV PATHS "'$PATH_LOG' '$PATH_TOMCAT_WORK'"
-RUN eval "mkdir -p $PATHS; chgrp root -R $PATHS; chmod -R g=u $PATHS"
-# RW access files
-ENV PATHS " \
-    '$FILE_PID_TOMCAT' "
-RUN eval "touch $PATHS; chgrp root $PATHS; chmod g=u $PATHS"
-ENV PATHS ""
+RUN D="$CATALINA_HOME"          && mkdir -p "$D" && chgrp -R root "$D" && chmod g=u -R "$D"
+RUN D="$CATALINA_BASE"          && mkdir -p "$D" && chgrp -R root "$D" && chmod g=u -R "$D"
+RUN D="$PATH_LOG"               && mkdir -p "$D" && chgrp -R root "$D" && chmod g=u -R "$D"
+RUN D="$PATH_TOMCAT_WORK"       && mkdir -p "$D" && chgrp -R root "$D" && chmod g=u -R "$D"
+RUN F="$FILE_LOG_TOMCAT"        && D="$(dirname "$F")" && mkdir -p "$D" && chmod g=u "$D" && touch "$F"  && chmod g=u "$F"
+RUN F="$FILE_LOG_TOMCAT_ERR"    && D="$(dirname "$F")" && mkdir -p "$D" && chmod g=u "$D" && touch "$F"  && chmod g=u "$F"
+RUN F="$FILE_LOG_VARNISH"       && D="$(dirname "$F")" && mkdir -p "$D" && chmod g=u "$D" && touch "$F"  && chmod g=u "$F"
+RUN F="$FILE_LOG_VARNISH_ERR"   && D="$(dirname "$F")" && mkdir -p "$D" && chmod g=u "$D" && touch "$F"  && chmod g=u "$F"
+RUN F="$FILE_PID_TOMCAT"        && D="$(dirname "$F")" && mkdir -p "$D" && chmod g=u "$D" && touch "$F"  && chmod g=u "$F"
 
 # Link tomcat log location to PATH_LOG
 RUN rm "$CATALINA_BASE/logs" && ln -s "$PATH_LOG" "$CATALINA_BASE/logs"
