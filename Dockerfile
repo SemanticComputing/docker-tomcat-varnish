@@ -29,6 +29,7 @@ RUN apt-get install -y vim
 # ENVIRONMENT VARIBLES
 ENV CATALINA_HOME "/usr/share/tomcat7"
 ENV CATALINA_BASE "/var/lib/tomcat7"
+ENV PATH_ETC_TOMCAT "/etc/tomcat7"
 ENV PATH_WEBAPPS "$CATALINA_BASE/webapps"
 ENV PATH_WEBAPP_ROOT "$PATH_WEBAPPS/ROOT"
 ENV PATH_TOMCAT_WORK "/var/lib/tomcat7/work"
@@ -47,6 +48,7 @@ ENV EXEC_TOMCAT_VARNISH "exec $RUN_TOMCAT_VARNISH"
 # PERMISSIONS
 RUN D="$CATALINA_HOME"          && mkdir -p "$D" && chgrp -R root "$D" && chmod g=u -R "$D"
 RUN D="$CATALINA_BASE"          && mkdir -p "$D" && chgrp -R root "$D" && chmod g=u -R "$D"
+RUN D="$PATH_ETC_TOMCAT"        && mkdir -p "$D" && chgrp -R root "$D" && chmod g=u -R "$D"
 RUN D="$PATH_LOG"               && mkdir -p "$D" && chgrp -R root "$D" && chmod g=u -R "$D"
 RUN D="$PATH_TOMCAT_WORK"       && mkdir -p "$D" && chgrp -R root "$D" && chmod g=u -R "$D"
 RUN F="$FILE_LOG_TOMCAT"        && D="$(dirname "$F")" && mkdir -p "$D" && chmod g=u "$D" && touch "$F"  && chmod g=u "$F"

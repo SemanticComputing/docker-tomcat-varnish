@@ -1,13 +1,16 @@
 #! /bin/bash
+IMAGE="tomcat-7-varnish"
 
+
+set -euo pipefail
+D="$(readlink -f "$(dirname "$0")")"
 PARAMS=""
-
-while getopts ":c" opt; do
-    case ${opt} in
-        c)
-            PARAMS="$PARAMS --no-cache"
-            ;;
+while [ $# -gt 0 ] && [[ $1 =~ ^-.* ]]; do
+    case $1 in
+        --debug) set -x; shift ;;
+        --no-cache|-c) PARAMS+=" --no-cache"; shift ;;
+        -*) shift ;;
     esac
 done
 
-docker build $PARAMS -t tomcat-7-varnish .
+( cd "$D"; docker build $PARAMS -t $IMAGE . )
