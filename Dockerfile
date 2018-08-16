@@ -38,9 +38,9 @@ ENV FILE_PID_TOMCAT "/run/tomcat.pid"
 ENV PATH_LOG "/log"
 ENV FILE_CONF_TOMCAT_LOGGING "$CATALINA_BASE/conf/logging.properties"
 ENV FILE_LOG_TOMCAT "$PATH_LOG/tomcat.log"
-ENV FILE_LOG_TOMCAT_ERR "$PATH_LOG/tomcat-err.log"
-ENV FILE_LOG_VARNISH "$PATH_LOG/varnish.log"
-ENV FILE_LOG_VARNISH_ERR "$PATH_LOG/varnish-err.log"
+ENV FILE_ERR_TOMCAT "$PATH_LOG/tomcat.err"
+ENV FILE_ERR_VARNISH "$PATH_LOG/varnish.log"
+ENV FILE_LOG_VARNISH "$PATH_LOG/varnish.err"
 ENV RUN_TOMCAT "/run-tomcat.sh"
 ENV EXEC_TOMCAT "exec $RUN_TOMCAT"
 ENV RUN_TOMCAT_VARNISH "/run-tomcat-varnish.sh"
@@ -63,9 +63,9 @@ RUN D="$CATALINA_HOME"                  && mkdir -p "$D" && chgrp -R root "$D" &
     D="$PATH_TOMCAT_USR_SHARED_CLASSES" && mkdir -p "$D" && chgrp -R root "$D" && chmod g=u -R "$D" && \
     D="$PATH_TOMCAT_CACHE"              && mkdir -p "$D" && chgrp -R root "$D" && chmod g=u -R "$D"
 RUN F="$FILE_LOG_TOMCAT"        && D="$(dirname "$F")" && mkdir -p "$D" && chmod g=u "$D" && touch "$F"  && chmod g=u "$F" && \
-    F="$FILE_LOG_TOMCAT_ERR"    && D="$(dirname "$F")" && mkdir -p "$D" && chmod g=u "$D" && touch "$F"  && chmod g=u "$F" && \
+    F="$FILE_ERR_TOMCAT"        && D="$(dirname "$F")" && mkdir -p "$D" && chmod g=u "$D" && touch "$F"  && chmod g=u "$F" && \
     F="$FILE_LOG_VARNISH"       && D="$(dirname "$F")" && mkdir -p "$D" && chmod g=u "$D" && touch "$F"  && chmod g=u "$F" && \
-    F="$FILE_LOG_VARNISH_ERR"   && D="$(dirname "$F")" && mkdir -p "$D" && chmod g=u "$D" && touch "$F"  && chmod g=u "$F" && \
+    F="$FILE_ERR_VARNISH"       && D="$(dirname "$F")" && mkdir -p "$D" && chmod g=u "$D" && touch "$F"  && chmod g=u "$F" && \
     F="$FILE_PID_TOMCAT"        && D="$(dirname "$F")" && mkdir -p "$D" && chmod g=u "$D" && touch "$F"  && chmod g=u "$F"
 
 # Link tomcat log location to PATH_LOG
