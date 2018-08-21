@@ -3,24 +3,19 @@ FROM secoresearch/varnish
 
 # INSTALL PROGRAMS
 
-RUN echo "deb  http://deb.debian.org/debian jessie main" >> /etc/apt/sources.list
-RUN echo "deb-src  http://deb.debian.org/debian jessie main" >> /etc/apt/sources.list
+RUN echo "deb  http://deb.debian.org/debian jessie main" >> /etc/apt/sources.list && \
+    echo "deb-src  http://deb.debian.org/debian jessie main" >> /etc/apt/sources.list
 
-RUN apt-get update
-
-RUN apt-get install -y openjdk-8-jdk
-ENV JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64
-
-RUN apt-get install -y tomcat8
-RUN apt-get install -y maven
-RUN apt-get install -y git
-RUN apt-get install -y jsvc
-
-# vim just for dev debugging, remove when more stable
-RUN apt-get install -y vim
-
+RUN apt-get update && \
+    apt-get install -y openjdk-8-jdk \
+    tomcat8 \
+    maven \
+    git \
+    jsvc \
+    vim
 
 # ENVIRONMENT VARIBLES
+ENV JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64
 ENV CATALINA_HOME "/usr/share/tomcat8"
 ENV CATALINA_BASE "/var/lib/tomcat8"
 ENV PATH_ETC_TOMCAT "/etc/tomcat8"
@@ -61,8 +56,8 @@ RUN D="$CATALINA_HOME"                  && mkdir -p "$D" && chgrp -R root "$D" &
     D="$PATH_TOMCAT_USR_COMMON_CLASSES" && mkdir -p "$D" && chgrp -R root "$D" && chmod g=u -R "$D" && \
     D="$PATH_TOMCAT_USR_SERVER_CLASSES" && mkdir -p "$D" && chgrp -R root "$D" && chmod g=u -R "$D" && \
     D="$PATH_TOMCAT_USR_SHARED_CLASSES" && mkdir -p "$D" && chgrp -R root "$D" && chmod g=u -R "$D" && \
-    D="$PATH_TOMCAT_CACHE"              && mkdir -p "$D" && chgrp -R root "$D" && chmod g=u -R "$D"
-RUN F="$FILE_LOG_TOMCAT"        && D="$(dirname "$F")" && mkdir -p "$D" && chmod g=u "$D" && touch "$F"  && chmod g=u "$F" && \
+    D="$PATH_TOMCAT_CACHE"              && mkdir -p "$D" && chgrp -R root "$D" && chmod g=u -R "$D" && \
+    F="$FILE_LOG_TOMCAT"        && D="$(dirname "$F")" && mkdir -p "$D" && chmod g=u "$D" && touch "$F"  && chmod g=u "$F" && \
     F="$FILE_ERR_TOMCAT"        && D="$(dirname "$F")" && mkdir -p "$D" && chmod g=u "$D" && touch "$F"  && chmod g=u "$F" && \
     F="$FILE_LOG_VARNISH"       && D="$(dirname "$F")" && mkdir -p "$D" && chmod g=u "$D" && touch "$F"  && chmod g=u "$F" && \
     F="$FILE_ERR_VARNISH"       && D="$(dirname "$F")" && mkdir -p "$D" && chmod g=u "$D" && touch "$F"  && chmod g=u "$F" && \
