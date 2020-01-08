@@ -16,6 +16,8 @@ FILE_PID_TOMCAT # /run/tomcat.pid
 FILE_CONF_TOMCAT_LOGGING # $CATALINA_BASE/conf/logging.properties
 RUN_TOMCAT_VARNISH # /run-tomcat-varnish.sh 
 EXEC_TOMCAT_VARNISH # exec $RUN_TOMCAT_VARNISH
+JAVA_XMS # Control JVMs heap memory, java -Xms ...
+JAVA_XMX # Control JVMs heap memory, java -Xmx ...
 ```
 These are defined at built-time and are not inteded to be changed.
 
