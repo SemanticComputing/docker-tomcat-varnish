@@ -11,5 +11,5 @@
     -Djavax.servlet.request.encoding=UTF-8 -Dfile.encoding=UTF-8 \
     -Djava.util.logging.config.file=$FILE_CONF_TOMCAT_LOGGING \
     ${JAVA_XMS:+-Xms$JAVA_XMS} \
-    ${JAVA_XMX:+-Xms$JAVA_XMX} \
+    ${JAVA_XMX:+-Xmx$JAVA_XMX} \
     org.apache.catalina.startup.Bootstrap
