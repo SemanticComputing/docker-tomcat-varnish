@@ -4,7 +4,7 @@
 
 ### Tomcat
 
-Environemt variables:
+Environment variables:
 ```
 CATALINA_HOME # /usr/share/tomcat8
 CATALINA_BASE # /var/lib/tomcat8
@@ -26,19 +26,6 @@ By default the tomcat app resides at `PATH_WEBAPPS`. You could mount it or copy 
 ### Varnish
 
 For details and configuration of the included varnish cache, see the docker-varnish -repository.
-
-## Pulling
-
-rahti-scripts is a submodule therefore you might want to use
-
-```
-git clone --recursive
-```
-and
-
-```
-git pull --recurse-submodules
-```
 
 
 ## Building
@@ -65,36 +52,3 @@ docker exec -it <container-name> bash`
 ```
 
 Opens bash inside the running container.
-
-
-## Running on Rahti
-
-### Initialize OpenShift resources
-
-```
-./rahti-init.sh
-```
-Can be done via the web intarface as well. See rahti-params.sh for the template and parameters to use.
-
-### Rebuild the service
-
-```
-./rahti-rebuild.sh
-```
-Can be done via the web interface as well. Navigate to the BuildConfig in question and click "Start Build"
-
-### Remove the OpenShift resources
-
-```
-./rahti-scrap.sh
-```
-
-### Webhooks
-
-The template also generates WebHook for triggering the build followed by redeploy.
-You can see the exact webhook URL with e.g. following commands
-```
-oc describe bc <ENVIRONMENT>-<APP_NAME> | grep -A 1 "Webhook"
-oc describe bc -l "app=<APP_NAME>,environment=<ENVIRONMENT>"
-```
-or via the OpenShift web console by navigating to the BuildConfig in question.
