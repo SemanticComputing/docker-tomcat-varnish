@@ -1,5 +1,10 @@
 #!/bin/sh
 
+touch "$FILE_LOG_TOMCAT"
+touch "$FILE_ERR_TOMCAT"
+touch "$FILE_LOG_VARNISH"
+touch "$FILE_ERR_VARNISH"
+
 eval "$EXEC_TOMCAT" >> "$FILE_LOG_TOMCAT" 2>> "$FILE_ERR_TOMCAT" &
 eval "$EXEC_VARNISH" >> "$FILE_LOG_VARNISH" 2>> "$FILE_ERR_VARNISH" &
 
