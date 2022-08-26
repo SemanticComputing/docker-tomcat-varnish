@@ -1,5 +1,4 @@
-ARG varnish_version=latest
-FROM secoresearch/varnish:${varnish_version}
+FROM secoresearch/varnish:5
 
 
 # INSTALL PROGRAMS
