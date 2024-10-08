@@ -1,24 +1,28 @@
-FROM secoresearch/varnish:5
+FROM secoresearch/varnish
 
 
 # INSTALL PROGRAMS
 
-RUN echo "deb  http://deb.debian.org/debian jessie main" >> /etc/apt/sources.list && \
-    echo "deb-src  http://deb.debian.org/debian jessie main" >> /etc/apt/sources.list
+RUN apt-get update && \
+    apt install -y apt-transport-https gpg wget
+
+# Java 8
+RUN wget -qO - https://packages.adoptium.net/artifactory/api/gpg/key/public | gpg --dearmor | tee /etc/apt/trusted.gpg.d/adoptium.gpg > /dev/null && \
+    echo "deb https://packages.adoptium.net/artifactory/deb $(awk -F= '/^VERSION_CODENAME/{print$2}' /etc/os-release) main" | tee /etc/apt/sources.list.d/adoptium.list
 
 RUN apt-get update && \
-    apt-get install -y openjdk-8-jdk \
-    tomcat8 \
+    apt-get install -y temurin-8-jdk \
+    tomcat9 \
     maven \
     git \
     jsvc \
     vim
 
 # ENVIRONMENT VARIBLES
-ENV JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64
-ENV CATALINA_HOME "/usr/share/tomcat8"
-ENV CATALINA_BASE "/var/lib/tomcat8"
-ENV PATH_ETC_TOMCAT "/etc/tomcat8"
+ENV JAVA_HOME=/usr/lib/jvm/temurin-8-jdk-amd64
+ENV CATALINA_HOME "/usr/share/tomcat9"
+ENV CATALINA_BASE "/var/lib/tomcat9"
+ENV PATH_ETC_TOMCAT "/etc/tomcat9"
 ENV PATH_WEBAPPS "$CATALINA_BASE/webapps"
 ENV PATH_WEBAPP_ROOT "$PATH_WEBAPPS/ROOT"
 ENV PATH_TOMCAT_WORK "$CATALINA_BASE/work"
@@ -28,7 +32,7 @@ ENV PATH_TOMCAT_USR_SHARED_CLASSES "$CATALINA_HOME/shared/classes"
 ENV PATH_TOMCAT_VAR_COMMON_CLASSES "$CATALINA_BASE/common/classes"
 ENV PATH_TOMCAT_VAR_SERVER_CLASSES "$CATALINA_BASE/server/classes"
 ENV PATH_TOMCAT_VAR_SHARED_CLASSES "$CATALINA_BASE/shared/classes"
-ENV PATH_TOMCAT_CACHE "/var/cache/tomcat8"
+ENV PATH_TOMCAT_CACHE "/var/cache/tomcat9"
 ENV FILE_PID_TOMCAT "/run/tomcat.pid"
 ENV PATH_LOG "/log"
 ENV FILE_CONF_TOMCAT_LOGGING "$CATALINA_BASE/conf/logging.properties"
@@ -70,4 +74,3 @@ RUN rm "$CATALINA_BASE/logs" && ln -s "$PATH_LOG" "$CATALINA_BASE/logs"
 COPY run-tomcat "$RUN_TOMCAT"
 COPY run "$RUN_TOMCAT_VARNISH"
 ENTRYPOINT [ "/run-tomcat-varnish.sh" ]
-EXPOSE 80
