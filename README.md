@@ -6,12 +6,12 @@
 
 Environment variables:
 ```
-CATALINA_HOME # /usr/share/tomcat8
-CATALINA_BASE # /var/lib/tomcat8
+CATALINA_HOME # /opt/apache-tomcat-7.0.109
+CATALINA_BASE # /opt/apache-tomcat-7.0.109
 PATH_WEBAPPS # $CATALINA_BASE/webapps
-PATH_LOG_TOMCAT # /var/log/tomcat8
-FILE_LOG_TOMCAT_OUT # $PATH_LOG_TOMCAT/catalina.out
-FILE_LOG_TOMCAT_ERROR # $PATH_LOG_TOMCAT/catalina.err
+PATH_LOG # /log
+FILE_LOG_TOMCAT # $PATH_LOG/tomcat.out
+FILE_ERR_TOMCAT # $PATH_LOG/tomcat.err
 FILE_PID_TOMCAT # /run/tomcat.pid
 FILE_CONF_TOMCAT_LOGGING # $CATALINA_BASE/conf/logging.properties
 RUN_TOMCAT_VARNISH # /run-tomcat-varnish.sh 
