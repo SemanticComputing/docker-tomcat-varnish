@@ -1,4 +1,4 @@
-ARG varnish_version=latest
+ARG varnish_version=7.1
 FROM secoresearch/varnish:${varnish_version}
 
 
