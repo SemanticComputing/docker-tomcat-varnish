@@ -18,10 +18,12 @@ RUN apt-get update && \
     jsvc \
     vim
 
+
 WORKDIR /opt
 RUN wget https://dlcdn.apache.org/tomcat/tomcat-9/v9.0.108/bin/apache-tomcat-9.0.108.tar.gz
 RUN tar xzvf apache-tomcat-9.0.108.tar.gz
 RUN rm apache-tomcat-9.0.108.tar.gz
+WORKDIR /
 
 # ENVIRONMENT VARIBLES
 ENV JAVA_HOME=/usr/lib/jvm/temurin-8-jdk-amd64
