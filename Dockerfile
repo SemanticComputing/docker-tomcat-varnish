@@ -13,7 +13,7 @@ RUN chmod +x /usr/lib/jvm/jdk-6u45-linux-x64.bin
 RUN /usr/lib/jvm/jdk-6u45-linux-x64.bin
 RUN rm /usr/lib/jvm/jdk-6u45-linux-x64.bin
 
-ENV JAVA_HOME "/usr/lib/jvm/jdk1.6.0_45/"
+ENV JAVA_HOME "/usr/lib/jvm/jdk1.6.0_45"
 
 RUN apt-get install -y wget
 WORKDIR /opt
