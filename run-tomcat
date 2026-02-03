@@ -12,4 +12,5 @@
     -Djava.util.logging.config.file=$FILE_CONF_TOMCAT_LOGGING \
     ${JAVA_XMS:+-Xms$JAVA_XMS} \
     ${JAVA_XMX:+-Xmx$JAVA_XMX} \
+    ${JAVA_OPTS:-} \
     org.apache.catalina.startup.Bootstrap
