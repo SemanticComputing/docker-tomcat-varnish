@@ -21,7 +21,7 @@ RUN apt-get update && \
 
 WORKDIR /opt
 ENV TOMCAT_MAJOR_VERSION=9
-ENV TOMCAT_VERSION=9.0.108
+ENV TOMCAT_VERSION=9.0.115
 RUN wget https://dlcdn.apache.org/tomcat/tomcat-$TOMCAT_MAJOR_VERSION/v$TOMCAT_VERSION/bin/apache-tomcat-$TOMCAT_VERSION.tar.gz || wget https://archive.apache.org/dist/tomcat/tomcat-$TOMCAT_MAJOR_VERSION/v$TOMCAT_VERSION/bin/apache-tomcat-$TOMCAT_VERSION.tar.gz
 RUN tar xzvf apache-tomcat-$TOMCAT_VERSION.tar.gz
 RUN rm apache-tomcat-$TOMCAT_VERSION.tar.gz
