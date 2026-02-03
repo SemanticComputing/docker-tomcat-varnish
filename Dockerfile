@@ -20,14 +20,16 @@ RUN apt-get update && \
 
 
 WORKDIR /opt
-RUN wget https://dlcdn.apache.org/tomcat/tomcat-9/v9.0.108/bin/apache-tomcat-9.0.108.tar.gz
-RUN tar xzvf apache-tomcat-9.0.108.tar.gz
-RUN rm apache-tomcat-9.0.108.tar.gz
+ENV TOMCAT_MAJOR_VERSION=9
+ENV TOMCAT_VERSION=9.0.108
+RUN wget https://dlcdn.apache.org/tomcat/tomcat-$TOMCAT_MAJOR_VERSION/v$TOMCAT_VERSION/bin/apache-tomcat-$TOMCAT_VERSION.tar.gz || wget https://archive.apache.org/dist/tomcat/tomcat-$TOMCAT_MAJOR_VERSION/v$TOMCAT_VERSION/bin/apache-tomcat-$TOMCAT_VERSION.tar.gz
+RUN tar xzvf apache-tomcat-$TOMCAT_VERSION.tar.gz
+RUN rm apache-tomcat-$TOMCAT_VERSION.tar.gz
 WORKDIR /
 
 # ENVIRONMENT VARIBLES
 ENV JAVA_HOME=/usr/lib/jvm/temurin-8-jdk-amd64
-ENV CATALINA_HOME "/opt/apache-tomcat-9.0.108"
+ENV CATALINA_HOME "/opt/apache-tomcat-"$TOMCAT_VERSION
 ENV CATALINA_BASE "$CATALINA_HOME"
 ENV PATH_WEBAPPS "$CATALINA_BASE/webapps"
 ENV PATH_WEBAPP_ROOT "$PATH_WEBAPPS/ROOT"
